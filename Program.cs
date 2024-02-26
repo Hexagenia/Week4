@@ -1,95 +1,116 @@
 ﻿using System;
 
-// Base Class
-class Animal
+namespace Inheritance
 {
-    private string name; 
-    protected string type; 
-    public string color; 
-
-    public void setName(string name)
+    // base class
+    class Animal
     {
-        this.name = name;
+        public string name;
+
+        // constructor
+        public Animal()
+        {
+            name = "";
+        }
+
+        // parameterized constructor
+        public Animal(string name)
+        {
+            this.name = name;
+        }
+
+        public virtual void DisplayInfo()
+        {
+            Console.WriteLine($"I am an animal, my name is {name}");
+        }
     }
 
-    public virtual string getName()
+    // first derived class
+    class Horse : Animal
     {
-        return this.name;
+        public string color;
+        public int height;
+        public int weight;
+
+        // default constructor
+        public Horse()
+        {
+            color = "";
+            height = 0;
+            weight = 0;
+        }
+
+        // parameterized constructor
+        public Horse(string name, string color, int height, int weight) : base(name)
+        {
+            this.color = color;
+            this.height = height;
+            this.weight = weight;
+        }
+
+        public override void DisplayInfo()
+        {
+            Console.WriteLine($"Horse Information...");
+            Console.WriteLine($"Name: {name}");
+            Console.WriteLine($"Color: {color}");
+            Console.WriteLine($"Height: {height}");
+            Console.WriteLine($"Weight: {weight}\n");
+        }
     }
 
-    public void setType(string type)
+    // second derived class
+    class Cat : Animal
     {
-        this.type = type;
+        public int age;
+        public double height;
+        public int weight;
+
+        // default constructor
+        public Cat()
+        {
+            age = 0;
+            height = 0.0;
+            weight = 0;
+        }
+
+        // parameterized constructor
+        public Cat(string name, int age, double height, int weight) : base(name)
+        {
+            this.age = age;
+            this.height = height;
+            this.weight = weight;
+        }
+
+        public override void DisplayInfo()
+        {
+            Console.WriteLine($"Cat Information...");
+            Console.WriteLine($"Name: {name}");
+            Console.WriteLine($"Age: {age}");
+            Console.WriteLine($"Height: {height}");
+            Console.WriteLine($"Weight: {weight}\n");
+        }
     }
 
-    public virtual string getType()
+    class Program
     {
-        return this.type;
-    }
-}
+        static void Main(string[] args)
+        {
+            // object of base class
+            Animal myPet = new Animal("Joey");
+            myPet.DisplayInfo();
 
-// Derived Class
-class Cat : Animal
-{
-    private string breed; // private field
-    public int height; // public field
-    public int weight; // public field
+            // derived class objects (the horses and cats)
+            Horse horse1 = new Horse("Henry the Horse", "Light Brown", 6, 600);
+            horse1.DisplayInfo();
 
-    public void setBreed(string breed)
-    {
-        this.breed = breed;
-    }
+            Cat cat1 = new Cat("Parmida the Cat", 2, 5.4, 34);
+            cat1.DisplayInfo();
 
-    public string getBreed()
-    {
-        return this.breed;
-    }
+            Horse horse2 = new Horse("Thunder the Horse", "Grey", 5, 453);
+            horse2.DisplayInfo();
 
-    // Override base class methods
-    public override string getName()
-    {
-        return base.getName();
-    }
-
-    public override string getType()
-    {
-        return base.getType();
-    }
-}
-
-class AnimalInheritance
-{
-    static void Main(string[] args)
-    {
-        // Create an object from the base class
-        Animal baseAnimal = new Animal();
-        baseAnimal.setName("Ali");
-        baseAnimal.setType("Dog");
-        baseAnimal.color = "Liver";
-
-        // Display base class data
-            Console.WriteLine("Animal Information");
-            Console.WriteLine("Name= " + baseAnimal.getName());
-            Console.WriteLine("Type= " + baseAnimal.getType());
-            Console.WriteLine("Color= " + baseAnimal.color);
-            Console.WriteLine();
-
-        // object from derived class
-        Cat cat = new Cat();
-        cat.setName("Helia");
-        cat.setType("Cat");
-        cat.color = "Black";
-        cat.setBreed("Persian");
-        cat.height = 9;
-        cat.weight = 12;
-
-        // derived class data output
-            Console.WriteLine("Cat Information");
-            Console.WriteLine("Name= " + cat.getName());
-            Console.WriteLine("Type= " + cat.getType());
-            Console.WriteLine("Color= " + cat.color);
-            Console.WriteLine("Breed= " + cat.getBreed());
-            Console.WriteLine("Height= " + cat.height);
-            Console.WriteLine("Weight= " + cat.weight);
+            Cat cat2 = new Cat("Colin the Cat", 3, 5.6, 43);
+            cat2.DisplayInfo();
+        }
     }
 }
