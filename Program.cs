@@ -1,116 +1,165 @@
 ﻿using System;
 
-namespace Inheritance
+// Base Class
+class NASCARTeam
 {
-    // base class
-    class Animal
+    // Private fields
+    private string teamName;
+    private string manufacturer;
+    private int numberOfMembers;
+
+    // Default constructor
+    public NASCARTeam()
     {
-        public string name;
-
-        // constructor
-        public Animal()
-        {
-            name = "";
-        }
-
-        // parameterized constructor
-        public Animal(string name)
-        {
-            this.name = name;
-        }
-
-        public virtual void DisplayInfo()
-        {
-            Console.WriteLine($"I am an animal, my name is {name}");
-        }
+        teamName = "";
+        manufacturer = "";
+        numberOfMembers = 0;
     }
 
-    // first derived class
-    class Horse : Animal
+    // Parameterized constructor
+    public NASCARTeam(string teamName, string manufacturer, int numberOfMembers)
     {
-        public string color;
-        public int height;
-        public int weight;
-
-        // default constructor
-        public Horse()
-        {
-            color = "";
-            height = 0;
-            weight = 0;
-        }
-
-        // parameterized constructor
-        public Horse(string name, string color, int height, int weight) : base(name)
-        {
-            this.color = color;
-            this.height = height;
-            this.weight = weight;
-        }
-
-        public override void DisplayInfo()
-        {
-            Console.WriteLine($"Horse Information...");
-            Console.WriteLine($"Name: {name}");
-            Console.WriteLine($"Color: {color}");
-            Console.WriteLine($"Height: {height}");
-            Console.WriteLine($"Weight: {weight}\n");
-        }
+        this.teamName = teamName;
+        this.manufacturer = manufacturer;
+        this.numberOfMembers = numberOfMembers;
     }
 
-    // second derived class
-    class Cat : Animal
+    // Getters and setters
+    public string GetTeamName()
     {
-        public int age;
-        public double height;
-        public int weight;
-
-        // default constructor
-        public Cat()
-        {
-            age = 0;
-            height = 0.0;
-            weight = 0;
-        }
-
-        // parameterized constructor
-        public Cat(string name, int age, double height, int weight) : base(name)
-        {
-            this.age = age;
-            this.height = height;
-            this.weight = weight;
-        }
-
-        public override void DisplayInfo()
-        {
-            Console.WriteLine($"Cat Information...");
-            Console.WriteLine($"Name: {name}");
-            Console.WriteLine($"Age: {age}");
-            Console.WriteLine($"Height: {height}");
-            Console.WriteLine($"Weight: {weight}\n");
-        }
+        return teamName;
     }
 
-    class Program
+    public void SetTeamName(string teamName)
     {
-        static void Main(string[] args)
+        this.teamName = teamName;
+    }
+
+    public string GetManufacturer()
+    {
+        return manufacturer;
+    }
+
+    public void SetManufacturer(string manufacturer)
+    {
+        this.manufacturer = manufacturer;
+    }
+
+    public int GetNumberOfMembers()
+    {
+        return numberOfMembers;
+    }
+
+    public void SetNumberOfMembers(int numberOfMembers)
+    {
+        this.numberOfMembers = numberOfMembers;
+    }
+
+    // Virtual methods
+    public virtual void AddOrChange()
+    {
+        Console.WriteLine("Base class method: Add or Change");
+    }
+
+    public virtual void Display()
+    {
+        Console.WriteLine($"Team Name: {teamName}, Manufacturer: {manufacturer}, Number of Members: {numberOfMembers}");
+    }
+}
+
+// Derived Class
+class NASCARDriver : NASCARTeam
+{
+    // Private fields
+    private string driverName;
+    private int carNumber;
+
+    // Default constructor
+    public NASCARDriver() : base()
+    {
+        driverName = "";
+        carNumber = 0;
+    }
+
+    // Parameterized constructor
+    public NASCARDriver(string teamName, string manufacturer, int numberOfMembers, string driverName, int carNumber) : base(teamName, manufacturer, numberOfMembers)
+    {
+        this.driverName = driverName;
+        this.carNumber = carNumber;
+    }
+
+    // Getters and setters
+    public string GetDriverName()
+    {
+        return driverName;
+    }
+
+    public void SetDriverName(string driverName)
+    {
+        this.driverName = driverName;
+    }
+
+    public int GetCarNumber()
+    {
+        return carNumber;
+    }
+
+    public void SetCarNumber(int carNumber)
+    {
+        this.carNumber = carNumber;
+    }
+
+    // Override base class methods
+    public override void AddOrChange()
+    {
+        base.AddOrChange();
+        Console.WriteLine("Derived class method: Add or Change");
+    }
+
+    public override void Display()
+    {
+        base.Display();
+        Console.WriteLine($"Driver Name: {driverName}, Car Number: {carNumber}");
+    }
+}
+
+class PrivateMultipleObjects
+{
+    static void Main(string[] args)
+    {
+        // Array of base class objects
+        NASCARTeam[] teams = new NASCARTeam[3];
+
+        // Array of derived class objects
+        NASCARDriver[] drivers = new NASCARDriver[3];
+
+        // adding to arrays
+        for (int i = 0; i < 3; i++)
         {
-            // object of base class
-            Animal myPet = new Animal("Joey");
-            myPet.DisplayInfo();
+            string teamName = $"Team {i + 1}";
+            string manufacturer = i == 0 ? "Toyota" : (i == 1 ? "Chevrolet" : "Ford");
+            int numberOfMembers = i + 10;
 
-            // derived class objects (the horses and cats)
-            Horse horse1 = new Horse("Henry the Horse", "Light Brown", 6, 600);
-            horse1.DisplayInfo();
+            teams[i] = new NASCARTeam(teamName, manufacturer, numberOfMembers);
 
-            Cat cat1 = new Cat("Parmida the Cat", 2, 5.4, 34);
-            cat1.DisplayInfo();
+            string driverName = $"Driver {i + 1}";
+            int carNumber = 10 + i;
 
-            Horse horse2 = new Horse("Thunder the Horse", "Grey", 5, 453);
-            horse2.DisplayInfo();
-
-            Cat cat2 = new Cat("Colin the Cat", 3, 5.6, 43);
-            cat2.DisplayInfo();
+            drivers[i] = new NASCARDriver(teamName, manufacturer, numberOfMembers, driverName, carNumber);
         }
+
+        // showing base class objects
+        Console.WriteLine("NASCAR Teams:");
+        foreach (NASCARTeam team in teams)
+        {
+            team.Display();
+        }
+
+            // showing derived class objects
+            Console.WriteLine("\nNASCAR Drivers:");
+            foreach (NASCARDriver driver in drivers)
+            {
+                driver.Display();
+            }
     }
 }
