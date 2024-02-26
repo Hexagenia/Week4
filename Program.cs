@@ -55,7 +55,7 @@ class NASCARTeam
         this.numberOfMembers = numberOfMembers;
     }
 
-    // Virtual methods
+    
     public virtual void AddOrChange()
     {
         Console.WriteLine("Base class method: Add or Change");
@@ -109,7 +109,7 @@ class NASCARDriver : NASCARTeam
         this.carNumber = carNumber;
     }
 
-    // Override base class methods
+    // Overriding base class methods
     public override void AddOrChange()
     {
         base.AddOrChange();
@@ -133,7 +133,7 @@ class PrivateMultipleObjects
         // Array of derived class objects
         NASCARDriver[] drivers = new NASCARDriver[3];
 
-        // adding to arrays
+        // Fill arrays
         for (int i = 0; i < 3; i++)
         {
             string teamName = $"Team {i + 1}";
@@ -148,18 +148,18 @@ class PrivateMultipleObjects
             drivers[i] = new NASCARDriver(teamName, manufacturer, numberOfMembers, driverName, carNumber);
         }
 
-        // showing base class objects
+        // Show base class objects
         Console.WriteLine("NASCAR Teams:");
         foreach (NASCARTeam team in teams)
         {
             team.Display();
         }
 
-            // showing derived class objects
-            Console.WriteLine("\nNASCAR Drivers:");
-            foreach (NASCARDriver driver in drivers)
-            {
-                driver.Display();
-            }
+        // Showing derived class objects
+        Console.WriteLine("\nNASCAR Drivers:");
+        foreach (NASCARDriver driver in drivers)
+        {
+            driver.Display();
+        }
     }
 }
